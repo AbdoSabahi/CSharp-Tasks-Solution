@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<int> numbers = new List<int> { 2,3,4,5,6,7,8,9,10 };
+
+        List<int> even = new();
+        List<int> odd = new();
+        List<int> prime = new();
+
+        Classify(numbers, even, odd, prime);
+
+        Console.WriteLine("Even: " + string.Join(",", even));
+        Console.WriteLine("Odd: " + string.Join(",", odd));
+        Console.WriteLine("Prime: " + string.Join(",", prime));
+    }
+
+    static void Classify(List<int> nums, List<int> even, List<int> odd, List<int> prime)
+    {
+        foreach (var n in nums)
+        {
+            if (IsEven(n)) even.Add(n);
+            else odd.Add(n);
+
+            if (IsPrime(n)) prime.Add(n);
+        }
+    }
+
+    static bool IsEven(int n) => n % 2 == 0;
+
+    static bool IsPrime(int n)
+    {
+        if (n < 2) return false;
+        for (int i = 2; i <= Math.Sqrt(n); i++)
+            if (n % i == 0) return false;
+        return true;
+    }
+}
