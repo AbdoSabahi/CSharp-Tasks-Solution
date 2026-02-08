@@ -1,0 +1,52 @@
+using System;
+
+class InsufficientBalanceException : Exception
+{
+    public InsufficientBalanceException(string msg) : base(msg) { }
+}
+
+class PaymentTimeoutException : Exception
+{
+    public PaymentTimeoutException(string msg) : base(msg) { }
+}
+
+class PaymentService
+{
+    public static void Pay(decimal balance, decimal amount)
+    {
+        if (balance < amount)
+            throw new InsufficientBalanceException("Not enough balance");
+
+        if (amount > 5000)
+            throw new PaymentTimeoutException("Payment timeout");
+
+        Console.WriteLine("Payment successful");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            PaymentService.Pay(1000, 6000);
+        }
+        catch (InsufficientBalanceException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (PaymentTimeoutException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("General Error");
+        }
+        finally
+        {
+            Console.WriteLine("Transaction Ended");
+        }
+    }
+}
