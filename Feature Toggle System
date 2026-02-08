@@ -1,0 +1,32 @@
+class Feature
+{
+    public bool Enabled { get; set; }
+    public readonly int MinVersion;
+
+    public Feature(bool enabled, int minVersion)
+    {
+        Enabled = enabled;
+        MinVersion = minVersion;
+    }
+
+    public bool CanRun(int appVersion)
+    {
+        return Enabled && appVersion >= MinVersion;
+    }
+}
+
+class Program
+{
+    const int AppVersion = 2;
+
+    static void Main()
+    {
+        Feature login = new Feature(true, 1);
+        Feature export = new Feature(false, 2);
+        Feature admin = new Feature(true, 3);
+
+        Console.WriteLine(login.CanRun(AppVersion) ? "Login Enabled" : "Login Disabled");
+        Console.WriteLine(export.CanRun(AppVersion) ? "Export Enabled" : "Export Disabled");
+        Console.WriteLine(admin.CanRun(AppVersion) ? "Admin Enabled" : "Admin Disabled");
+    }
+}
