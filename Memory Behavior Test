@@ -1,0 +1,38 @@
+class User
+{
+    public string Name;
+}
+
+struct UserSnapshot
+{
+    public string Name;
+}
+
+class Program
+{
+    static void Modify(User u, UserSnapshot s)
+    {
+        u.Name = "Changed";
+        s.Name = "Changed";
+    }
+
+    static void ModifyRef(ref User u, ref UserSnapshot s)
+    {
+        u.Name = "Ref Changed";
+        s.Name = "Ref Changed";
+    }
+
+    static void Main()
+    {
+        User user = new User { Name = "Ahmed" };
+        UserSnapshot snap = new UserSnapshot { Name = "Ahmed" };
+
+        Modify(user, snap);
+        Console.WriteLine(user.Name); // Changed
+        Console.WriteLine(snap.Name); // Ahmed
+
+        ModifyRef(ref user, ref snap);
+        Console.WriteLine(user.Name); // Ref Changed
+        Console.WriteLine(snap.Name); // Ref Changed
+    }
+}
